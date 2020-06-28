@@ -1,0 +1,23 @@
+{
+  "name": "libraryapi",
+  "version": "1.0.0",
+  "description": "This is a Library API built using Node.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmedsherifm/libraryApi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahmedsherifm/libraryApi/issues"
+  },
+  "homepage": "https://github.com/ahmedsherifm/libraryApi#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
