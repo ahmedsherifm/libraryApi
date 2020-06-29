@@ -14,7 +14,13 @@ function router() {
 
         return res.json(books);
       });
+    })
+    .post((req, res) => {
+      const book = new Book(req.body);
+
+      res.json(book);
     });
+
   bookRouter.route('/:bookId')
     .get((req, res) => {
       const { bookId } = req.params;
