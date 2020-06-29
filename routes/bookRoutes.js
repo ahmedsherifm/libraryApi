@@ -18,7 +18,8 @@ function router() {
     .post((req, res) => {
       const book = new Book(req.body);
 
-      res.json(book);
+      book.save();
+      res.status(201).json(book);
     });
 
   bookRouter.route('/:bookId')
