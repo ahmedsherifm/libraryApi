@@ -1,9 +1,9 @@
 const express = require('express');
 
-const bookRouter = express.Router();
 const Book = require('../models/bookModel');
 
 function router() {
+  const bookRouter = express.Router();
   bookRouter.route('/')
     .get((req, res) => {
       const { query } = req;
@@ -14,7 +14,14 @@ function router() {
 
         return res.json(books);
       });
+    })
+    .post((req, res) => {
+      const book = new Book(req.body);
+
+      book.save();
+      res.status(201).json(book);
     });
+
   bookRouter.route('/:bookId')
     .get((req, res) => {
       const { bookId } = req.params;
