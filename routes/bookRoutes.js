@@ -23,31 +23,31 @@ function router() {
       res.status(201).json(book);
     });
 
+  bookRouter.use('/:bookId', (req, res, next) => {
+    const { bookId } = req.params;
+    Book.findById(bookId, (err, book) => {
+      if (err) {
+        return res.send(err);
+      }
+      if (book) {
+        req.book = book;
+        return next();
+      }
+
+      return res.status(404);
+    });
+  });
   bookRouter.route('/:bookId')
-    .get((req, res) => {
-      const { bookId } = req.params;
-      Book.findById(bookId, (err, book) => {
-        if (err) {
-          return res.send(err);
-        }
-
-        return res.json(book);
-      });
-    })
+    .get((req, res) => res.json(req.book))
     .put((req, res) => {
-      const { bookId } = req.params;
-      Book.findById(bookId, (err, book) => {
-        if (err) {
-          return res.send(err);
-        }
+      const { book } = req;
 
-        book.title = req.body.title;
-        book.author = req.body.author;
-        book.genre = req.body.genre;
-        book.read = req.body.read;
-        book.save();
-        return res.json(book);
-      });
+      book.title = req.body.title;
+      book.author = req.body.author;
+      book.genre = req.body.genre;
+      book.read = req.body.read;
+      book.save();
+      return res.json(book);
     });
 
   return bookRouter;
