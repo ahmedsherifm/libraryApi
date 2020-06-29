@@ -20,8 +20,13 @@ function router() {
     .post((req, res) => {
       const book = new Book(req.body);
 
-      book.save();
-      res.status(201).json(book);
+      book.save((err) => {
+        if (err) {
+          return res.send(err);
+        }
+
+        return res.status(201).json(book);
+      });
     });
 
   bookRouter.use('/:bookId', (req, res, next) => {
