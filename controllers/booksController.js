@@ -8,7 +8,13 @@ function booksController(Book) {
         return res.send(err);
       }
 
-      return res.json(books);
+      const returnBooks = books.map((book) => {
+        const newBook = book.toJSON();
+        newBook.links = {};
+        newBook.links.self = `http://${req.headers.host}/api/books/${book._id}`;
+        return newBook;
+      });
+      return res.json(returnBooks);
     });
   }
 
@@ -40,7 +46,12 @@ function booksController(Book) {
   }
 
   function getBookById(req, res) {
-    res.json(req.book);
+    const returnBook = req.book.toJSON();
+
+    returnBook.links = {};
+    const { genre } = returnBook;
+    returnBook.links.filterByThisGenre = `http://${req.headers.host}/api/books?genre=${encodeURI(genre)}`;
+    res.json(returnBook);
   }
 
   function replaceBookData(req, res) {
