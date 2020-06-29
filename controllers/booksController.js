@@ -15,13 +15,13 @@ function booksController(Book) {
   function addBook(req, res) {
     const book = new Book(req.body);
 
-    book.save((err) => {
-      if (err) {
-        return res.send(err);
-      }
+    if (!book.title) {
+      res.status(400);
+      return res.send('Title is required');
+    }
 
-      return res.status(201).json(book);
-    });
+    res.status(201);
+    return res.json(book);
   }
 
   function getBookByIdMiddleware(req, res, next) {
@@ -54,7 +54,9 @@ function booksController(Book) {
       if (err) {
         return res.send(err);
       }
-      return res.status(200).json(book);
+
+      res.status(200);
+      return res.json(book);
     });
   }
 
@@ -73,7 +75,9 @@ function booksController(Book) {
       if (err) {
         return res.send(err);
       }
-      return res.status(200).json(book);
+
+      res.status(200);
+      return res.json(book);
     });
   }
 
