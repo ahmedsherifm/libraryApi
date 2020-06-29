@@ -5,7 +5,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const db = mongoose.connect('mongodb://localhost/bookAPI');
 const port = process.env.PORT || 3000;
-const bookRouter = require('./routes/bookRoutes');
+const Book = require('./models/bookModel');
+const bookRouter = require('./routes/bookRoutes')(Book);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
